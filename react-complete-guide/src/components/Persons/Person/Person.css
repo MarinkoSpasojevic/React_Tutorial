@@ -1,0 +1,15 @@
+.person{
+    border: 1px solid grey;
+    padding: 20px;
+    box-shadow: 1px 1px 1px grey;
+    width: 60%;
+    margin: auto;
+    margin-top: 10px;
+    
+}
+
+@media(min-width: 600px){
+    .person{
+        width:500px;
+    }
+}

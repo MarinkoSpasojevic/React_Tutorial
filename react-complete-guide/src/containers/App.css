@@ -1,0 +1,27 @@
+.App {
+  text-align: center;
+}
+
+.hiddenPersons{
+  background-color: green;
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+}
+.hiddenPersons:hover{
+  background-color: lightgreen;
+}
+
+.shownPersons{
+  background-color: red;
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+}
+.shownPersons:hover{
+  background-color: salmon;
+}
