@@ -17,3 +17,9 @@
     height: 100px;
     
 }
+
+@media (max-width: 499px) {
+    .DesktopOnly {
+        display: none;
+    }
+}
