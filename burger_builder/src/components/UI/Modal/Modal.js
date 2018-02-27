@@ -1,30 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Modal.css';
-import Aux from '../../../hoc/Auxiliaru';
+import Aux from '../../../hoc/Auxiliaru/Auxiliaru';
 import BackDrop from '../Backdrop/Backdrop';
 
-const renderClasses = (show) => {
-    let classesArray = [];
-    if (show) {
-        classesArray.push(classes.Modal, classes.ShowModal);
-    }
-    else {
-        classesArray.push(classes.Modal, classes.HideModal);
+class Modal extends Component {
+    renderClasses = (show) => {
+        let classesArray = [];
+        if (show) {
+            classesArray.push(classes.Modal, classes.ShowModal);
+        }
+        else {
+            classesArray.push(classes.Modal, classes.HideModal);
+        }
+
+        return classesArray.join(' ');
     }
 
-    return classesArray.join(' ');
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.show !== this.props.show;
+    }
+
+    componentWillUpdate(){
+        console.log('Modal will update');
+    }
+
+    render() {
+        let modalClasses = this.renderClasses(this.props.show);
+
+        return (
+            <Aux>
+                <BackDrop show={this.props.show} closeOrder={this.props.closeOrder} />
+                <div className={modalClasses}>
+                    {this.props.children}
+                </div>
+            </Aux>
+        );
+    }
 }
 
-const modal = (props) => {
-    let modalClasses = renderClasses(props.show);
-    return (
-        <Aux>
-            <BackDrop show={props.show} closeOrder={props.closeOrder}/>
-            <div className={modalClasses}>
-                {props.children}
-            </div>
-        </Aux>
-    );
-}
-
-export default modal;
+export default Modal;
