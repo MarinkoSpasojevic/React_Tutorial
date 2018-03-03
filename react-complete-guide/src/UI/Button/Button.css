@@ -1,0 +1,11 @@
+.Success{
+    height: 50px;
+    padding: 2px;
+    color: green;
+}
+
+.Error{
+    height: 50px;
+    padding: 2px;
+    color: red;
+}

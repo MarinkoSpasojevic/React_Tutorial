@@ -4,6 +4,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Auxiliary';
 import WithClass from '../hoc/WithClass';
+import Teams from '../components/Teams/Teams';
 
 class App extends Component {
   state = {
@@ -14,7 +15,12 @@ class App extends Component {
     ],
     other: "something other here.",
     showPersons: false,
-    countToggle: 0
+    countToggle: 0,
+    teams: [
+      {id: 1, name: 'Red Star', city: 'Belgrade'},
+      {id: 2, name: 'Barusia', city: 'Mehengladbah'},
+      {id: 3, name: 'MancheserUTD', city: 'Manchester'}
+    ]
   }
 
   changeName = (id, event) => {
@@ -68,6 +74,7 @@ class App extends Component {
       <Aux>
         <Cockpit buttonClass={buttonClass} togglePerson={this.togglePerson} title={this.props.title} />
         {persons}
+        <Teams teamList={this.state.teams}/>
       </Aux>
     );
   }

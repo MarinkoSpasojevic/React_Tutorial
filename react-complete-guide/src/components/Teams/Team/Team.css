@@ -1,0 +1,7 @@
+.Team{
+    color: red;
+    border: 1px solid gray;
+    width: 30%;
+    margin: 20px auto;
+    box-shadow: 1px 2px 2px gray;
+}
