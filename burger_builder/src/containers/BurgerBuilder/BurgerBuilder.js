@@ -5,7 +5,8 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import * as burgerBuilderActions from '../../store/actions/burgerBuilder';
+import * as orderActions from '../../store/actions/order';
 
 class BurgerBuilder extends Component {
     state = {
@@ -13,13 +14,8 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        // axios.get('/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ ingredients: response.data });
-        //     }).catch(error => {
-        //         console.log(error);
-        //     });
-
+    const url = '/ingredients.json';
+       this.props.onInitIngredients(url, {...this.props});
     }
 
     shoudDisableButton = () => {
@@ -50,6 +46,7 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinue = () => {
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
     }
 
@@ -74,15 +71,17 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ings: state.ingredients,
-        totalPrice: state.totalPrice
+        ings: state.burgerBuilder.ingredients,
+        totalPrice: state.burgerBuilder.totalPrice
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
-        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients: (url, props) => dispatch(burgerBuilderActions.initIngredients(url, props)),
+        onInitPurchase: () => dispatch(orderActions.purchaseInit())
     }
 }
 

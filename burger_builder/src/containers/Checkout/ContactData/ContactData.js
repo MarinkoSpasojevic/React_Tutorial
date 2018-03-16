@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Button from '../../../components/UI/Button/Button';
-import axios from '../../../Axios/axios';
 import classes from './ContactData.css';
 import Input from '../../../components/UI/Input/Input';
 import { connect } from 'react-redux';
+import * as orderActions from '../../../store/actions/order';
 
 class ContactData extends Component {
     state = {
@@ -72,11 +72,7 @@ class ContactData extends Component {
             totalPrice: this.props.totalPrice.toFixed(2)
         }
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                console.log(response);
-                this.props.history.push('/');
-            })
+        this.props.onOrderBurger(order);
     }
 
     convertStateToArrayOfFormObjects = () => {
@@ -140,9 +136,15 @@ class ContactData extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ings: state.ingredients,
-        totalPrice: state.totalPrice
+        ings: state.burgerBuilder.ingredients,
+        totalPrice: state.burgerBuilder.totalPrice
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onOrderBurger: (orderData) => dispatch(orderActions.purcahseBurgerStart(orderData))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
