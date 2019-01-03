@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Table, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Aux from '../../hoc/auxiliary';
+import Aux from '../../../hoc/auxiliary';
 import { connect } from 'react-redux';
-import * as repositoryActions from '../../store/actions/repositoryActions';
-import Owner from './Owner/Owner';
+import * as repositoryActions from '../../../store/actions/repositoryActions';
+import Owner from '../../../components/OwnerComponents/Owner/Owner';
 
 class Owners extends Component {
     componentDidMount = () => {
@@ -53,7 +53,7 @@ class Owners extends Component {
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        data: state.data
+        data: state.repository.data
     }
 }
 
