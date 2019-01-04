@@ -23,17 +23,19 @@ const executeOtherError = (state, action) => {
     }
 }
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.HTTP_404_ERROR:
-            return execute404(state, action);
-        case actionTypes.HTTP_500_ERROR:
-            return execute500(state, action);
-        case actionTypes.HTTP_OTHER_ERROR:
-            return executeOtherError(state, action);
-        default:
-            return state;
+const executeReducer = (state, action) => {
+    const execute = {
+        [actionTypes.HTTP_404_ERROR]: execute404(state, action),
+        [actionTypes.HTTP_500_ERROR]: execute500(state, action),
+        [actionTypes.HTTP_OTHER_ERROR]: executeOtherError(state, action),
+        'default': state
     }
+
+    return execute[action.type] || execute['default'];
+}
+
+const reducer = (state = initialState, action) => {
+   return action.props ? executeReducer(state, action) : null;
 }
 
 export default reducer;
