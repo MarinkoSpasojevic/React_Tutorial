@@ -33,19 +33,15 @@ const executeDeleteDataSuccess = (state, action) => {
     }
 }
 
-const execute = (state, action) => {
-    const executeObj = {
-        [actionTypes.GET_DATA_SUCCESS]: executeGetDataSuccess(state, action),
-        [actionTypes.POST_DATA_SUCCESS]: executePostDataSuccess(state, action),
-        [actionTypes.PUT_DATA_SUCCESS]: executePutDataSuccess(state, action),
-        [actionTypes.DELETE_DATA_SUCCESS]: executeDeleteDataSuccess(state, action),
-        'default': state,
-    }
-    return executeObj[action.type] || executeObj['default'];
+const execute = {
+    [actionTypes.GET_DATA_SUCCESS]: executeGetDataSuccess,
+    [actionTypes.POST_DATA_SUCCESS]: executePostDataSuccess,
+    [actionTypes.PUT_DATA_SUCCESS]: executePutDataSuccess,
+    [actionTypes.DELETE_DATA_SUCCESS]: executeDeleteDataSuccess
 }
 
 const reducer = (state = initialState, action) => {
-    return execute(state, action);
+    return execute[action.type] ? execute[action.type](state, action) : state;
 }
 
 export default reducer;

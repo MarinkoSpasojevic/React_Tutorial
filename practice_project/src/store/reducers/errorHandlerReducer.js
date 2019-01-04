@@ -7,12 +7,12 @@ const initialState = {
 
 const execute404 = (state, action) => {
     action.props.history.push('/404');
-    return {...state}
+    return { ...state }
 }
 
 const execute500 = (state, action) => {
     action.props.history.push('/500');
-    return {...state}
+    return { ...state }
 }
 
 const executeOtherError = (state, action) => {
@@ -23,19 +23,14 @@ const executeOtherError = (state, action) => {
     }
 }
 
-const executeReducer = (state, action) => {
-    const execute = {
-        [actionTypes.HTTP_404_ERROR]: execute404(state, action),
-        [actionTypes.HTTP_500_ERROR]: execute500(state, action),
-        [actionTypes.HTTP_OTHER_ERROR]: executeOtherError(state, action),
-        'default': state
-    }
-
-    return execute[action.type] || execute['default'];
+const execute = {
+    [actionTypes.HTTP_404_ERROR]: execute404,
+    [actionTypes.HTTP_500_ERROR]: execute500,
+    [actionTypes.HTTP_OTHER_ERROR]: executeOtherError
 }
 
 const reducer = (state = initialState, action) => {
-   return action.props ? executeReducer(state, action) : null;
+    return execute[action.type] ? execute[action.type](state, action) : state;
 }
 
 export default reducer;
